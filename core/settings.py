@@ -44,6 +44,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+     # Third-party apps
+    "rest_framework",
+    "django_filters",
+    "drf_spectacular",
+
+    # Project apps
+    "apps.accounts",
+    "apps.students",
+    "apps.courses",
+    "apps.attendance",
+    "apps.fees",
+    "apps.payments",
 ]
 
 MIDDLEWARE = [
