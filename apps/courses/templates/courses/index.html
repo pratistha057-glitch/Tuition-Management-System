@@ -1,0 +1,180 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/courses.css' %}">
+</head>
+<body>
+
+<div class="container course-page">
+
+    <!-- Page Heading -->
+    <section class="course-page-heading">
+        <span class="page-eyebrow">TUITION MANAGEMENT SYSTEM</span>
+
+        <h1>
+            <i class="bi bi-book-half me-2"></i>
+            Course Management
+        </h1>
+
+        <p>
+            Organize courses, manage course details, and keep your academic
+            programs up to date.
+        </p>
+    </section>
+
+    <!-- Course List Card -->
+    <section class="course-card">
+
+        <header class="course-card-header">
+    <div>
+        <h2>Course List</h2>
+    </div>
+
+    <a href="{% url 'course-create' %}" class="btn-primary-custom">
+        <i class="bi bi-plus-circle me-1"></i>Add Course
+    </a>
+</header>
+
+        <div class="course-card-body">
+
+            <!-- Search -->
+            <form id="courseSearchForm" class="course-toolbar">
+                <div class="course-search-group">
+                    <input
+                        type="search"
+                        id="courseSearch"
+                        class="course-search"
+                        placeholder="Search by course name, description, duration or fee..."
+                        aria-label="Search courses"
+                    >
+
+                    <button type="submit" class="btn-primary-custom">
+                        <i class="bi bi-search me-1"></i>
+                        Search
+                    </button>
+
+                    <button type="button"
+                            id="clearSearch"
+                            class="btn-secondary-custom">
+                        Clear
+                    </button>
+                </div>
+
+                <span class="search-hint">Find a course</span>
+            </form>
+
+            <!-- Table -->
+            <div class="course-table-wrapper">
+                <table class="course-table" id="courseTable">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Fee</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>
+    <div class="course-name">
+        <span>{{ course.name }}</span>
+    </div>
+</td>
+
+                            <td>
+                                <div class="course-description"
+                                     title="{{ course.description }}">
+                                    {{ course.description|default:"—"|truncatechars:90 }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="duration-badge">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ course.duration }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="course-fee">
+                                    Rs. {{ course.fee }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="course-actions">
+                                    <a href="{% url 'course-update' course.pk %}"
+                                       class="btn-edit"
+                                       title="Edit course"
+                                       aria-label="Edit {{ course.name }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <a href="{% url 'course-delete' course.pk %}"
+                                       class="btn-delete"
+                                       title="Delete course"
+                                       aria-label="Delete {{ course.name }}">
+                                        <i class="bi bi-trash3"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="no-courses">
+                                <i class="bi bi-journal-x"></i>
+                                <h3>No courses yet</h3>
+                                <p>Add your first course to get started.</p>
+
+                                <a href="{% url 'course-create' %}"
+                                   class="btn-primary-custom">
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Add Your First Course
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Search Result Message -->
+            <p id="courseSearchMessage"
+               class="search-message"
+               role="status"
+               aria-live="polite"
+               hidden>
+                No matching courses found.
+            </p>
+
+            <div class="course-count">
+                Showing <strong id="courseCount">{{ courses|length }}</strong>
+                of <strong id="totalCourseCount">{{ courses|length }}</strong>
+                courses
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<script src="{% static 'js/courses.js' %}"></script>
+</body>
+</html>
