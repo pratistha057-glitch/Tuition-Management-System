@@ -1,8 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView,CreateView,UpdateView,DeleteView
-from apps.courses.models import Course, Subject, Batch
-from apps.courses.forms import CourseForm, SubjectForm, BatchForm
-
+from apps.courses.models import Course, Subject
+from apps.courses.forms import CourseForm, SubjectForm
 
 
 # Course Views
@@ -64,30 +63,3 @@ class SubjectDeleteView(DeleteView):
 
 
 
-# Batch Views
-
-class BatchListView(ListView):
-    model = Batch
-    template_name = "courses/batches/index.html"
-    context_object_name = "batches"
-    ordering = ["name"]
-
-
-class BatchCreateView(CreateView):
-    model = Batch
-    form_class = BatchForm
-    template_name = "courses/batches/create.html"
-    success_url = reverse_lazy("batch-list")
-
-
-class BatchUpdateView(UpdateView):
-    model = Batch
-    form_class = BatchForm
-    template_name = "courses/batches/update.html"
-    success_url = reverse_lazy("batch-list")
-
-
-class BatchDeleteView(DeleteView):
-    model = Batch
-    template_name = "courses/batches/delete.html"
-    success_url = reverse_lazy("batch-list")

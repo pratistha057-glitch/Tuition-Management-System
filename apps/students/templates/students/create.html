@@ -106,17 +106,9 @@
                             </div>
 
                             <div>
-                                <label for="{{ form.course.id_for_label }}" class="form-label">Course</label>
+                                <label for="{{ form.course.id_for_label }}" class="form-label">Courses</label>
                                 {{ form.course }}
                                 {% for error in form.course.errors %}
-                                    <div class="field-error">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-
-                            <div>
-                                <label for="{{ form.batch.id_for_label }}" class="form-label">Batch</label>
-                                {{ form.batch }}
-                                {% for error in form.batch.errors %}
                                     <div class="field-error">{{ error }}</div>
                                 {% endfor %}
                             </div>

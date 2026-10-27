@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.courses.models import Course, Subject, Batch
+from apps.courses.models import Course, Subject
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -11,10 +11,4 @@ class CourseSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = "__all__"
-
-
-class BatchSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Batch
         fields = "__all__"

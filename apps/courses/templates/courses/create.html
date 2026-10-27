@@ -48,7 +48,9 @@
                             <div class="course-form-field">
                                 <label for="{{ field.id_for_label }}">
                                     {{ field.label }}
-                                    {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
+                                    {% if field.field.required %}
+                                        <span class="required-mark">*</span>
+                                    {% endif %}
                                 </label>
 
                                 {{ field }}
@@ -69,11 +71,13 @@
 
                     <div class="course-form-grid">
                         {% for field in form %}
-                            {% if field.name == "duration" or field.name == "fee" %}
+                            {% if field.name == "duration" or field.name == "fee" or field.name == "batch" %}
                                 <div class="course-form-field">
                                     <label for="{{ field.id_for_label }}">
                                         {{ field.label }}
-                                        {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
+                                        {% if field.field.required %}
+                                            <span class="required-mark">*</span>
+                                        {% endif %}
                                     </label>
 
                                     {{ field }}
@@ -85,6 +89,32 @@
                             {% endif %}
                         {% endfor %}
                     </div>
+                </div>
+
+                <div class="course-form-section">
+                    <h3 class="course-form-section-title">
+                        <i class="bi bi-book-half"></i>
+                        Subjects
+                    </h3>
+
+                    {% for field in form %}
+                        {% if field.name == "subjects" %}
+                            <div class="course-form-field">
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                    {% if field.field.required %}
+                                        <span class="required-mark">*</span>
+                                    {% endif %}
+                                </label>
+
+                                {{ field }}
+
+                                {% for error in field.errors %}
+                                    <small class="field-error">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div class="course-form-actions">

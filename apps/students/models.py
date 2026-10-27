@@ -11,8 +11,7 @@ class Student(models.Model):
     date_of_birth = models.DateField()
     joined_date = models.DateField(auto_now_add=True)
     class_name = models.CharField(max_length=30)
-    course = models.ForeignKey("courses.Course",on_delete=models.SET_NULL,null=True,blank=True)
-    batch = models.ForeignKey("courses.Batch",on_delete=models.SET_NULL,null=True,blank=True)
+    course = models.ManyToManyField("courses.Course",related_name="students",blank=True)
 
     def __str__(self):
         return f"{self.student_id} - {self.user.username}"

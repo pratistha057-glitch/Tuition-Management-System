@@ -1,5 +1,5 @@
 from django import forms
-from apps.courses.models import Course, Subject, Batch
+from apps.courses.models import Course, Subject
 
 
 class CourseForm(forms.ModelForm):
@@ -11,10 +11,4 @@ class CourseForm(forms.ModelForm):
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
-        fields = "__all__"
-
-
-class BatchForm(forms.ModelForm):
-    class Meta:
-        model = Batch
         fields = "__all__"

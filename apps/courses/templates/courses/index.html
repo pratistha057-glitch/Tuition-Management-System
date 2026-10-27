@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +28,8 @@
         </h1>
 
         <p>
-            Organize courses, manage course details, and keep your academic
-            programs up to date.
+            Organize courses, manage subjects and batches, and keep your
+            academic programs up to date.
         </p>
     </section>
 
@@ -38,14 +37,15 @@
     <section class="course-card">
 
         <header class="course-card-header">
-    <div>
-        <h2>Course List</h2>
-    </div>
+            <div>
+                <h2>Course List</h2>
+            </div>
 
-    <a href="{% url 'course-create' %}" class="btn-primary-custom">
-        <i class="bi bi-plus-circle me-1"></i>Add Course
-    </a>
-</header>
+            <a href="{% url 'course-create' %}" class="btn-primary-custom">
+                <i class="bi bi-plus-circle me-1"></i>
+                Add Course
+            </a>
+        </header>
 
         <div class="course-card-body">
 
@@ -56,7 +56,7 @@
                         type="search"
                         id="courseSearch"
                         class="course-search"
-                        placeholder="Search by course name, description, duration or fee..."
+                        placeholder="Search by name, description, duration, fee or batch..."
                         aria-label="Search courses"
                     >
 
@@ -65,9 +65,10 @@
                         Search
                     </button>
 
-                    <button type="button"
-                            id="clearSearch"
-                            class="btn-secondary-custom">
+                    <button
+                        type="button"
+                        id="clearSearch"
+                        class="btn-secondary-custom">
                         Clear
                     </button>
                 </div>
@@ -75,14 +76,16 @@
                 <span class="search-hint">Find a course</span>
             </form>
 
-            <!-- Table -->
+            <!-- Course Table -->
             <div class="course-table-wrapper">
                 <table class="course-table" id="courseTable">
                     <thead>
                         <tr>
                             <th>Course</th>
                             <th>Description</th>
+                            <th>Subjects</th>
                             <th>Duration</th>
+                            <th>Batch</th>
                             <th>Fee</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -91,12 +94,14 @@
                     <tbody>
                         {% for course in courses %}
                         <tr>
+                            <!-- Course Name -->
                             <td>
-    <div class="course-name">
-        <span>{{ course.name }}</span>
-    </div>
-</td>
+                                <div class="course-name">
+                                    <span>{{ course.name }}</span>
+                                </div>
+                            </td>
 
+                            <!-- Description -->
                             <td>
                                 <div class="course-description"
                                      title="{{ course.description }}">
@@ -104,6 +109,18 @@
                                 </div>
                             </td>
 
+                            <!-- Subjects -->
+                            <td>
+                                {% for subject in course.subjects.all %}
+                                    <span class="duration-badge">
+                                        {{ subject.name }}
+                                    </span>
+                                {% empty %}
+                                    <span class="text-muted">No subjects</span>
+                                {% endfor %}
+                            </td>
+
+                            <!-- Duration -->
                             <td>
                                 <span class="duration-badge">
                                     <i class="bi bi-clock me-1"></i>
@@ -111,25 +128,37 @@
                                 </span>
                             </td>
 
+                            <!-- Batch -->
+                            <td>
+                                <span class="duration-badge">
+                                    <i class="bi bi-calendar2-week me-1"></i>
+                                    {{ course.batch }}
+                                </span>
+                            </td>
+
+                            <!-- Fee -->
                             <td>
                                 <span class="course-fee">
                                     Rs. {{ course.fee }}
                                 </span>
                             </td>
 
+                            <!-- Actions -->
                             <td>
                                 <div class="course-actions">
-                                    <a href="{% url 'course-update' course.pk %}"
-                                       class="btn-edit"
-                                       title="Edit course"
-                                       aria-label="Edit {{ course.name }}">
+                                    <a
+                                        href="{% url 'course-update' course.pk %}"
+                                        class="btn-edit"
+                                        title="Edit course"
+                                        aria-label="Edit {{ course.name }}">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <a href="{% url 'course-delete' course.pk %}"
-                                       class="btn-delete"
-                                       title="Delete course"
-                                       aria-label="Delete {{ course.name }}">
+                                    <a
+                                        href="{% url 'course-delete' course.pk %}"
+                                        class="btn-delete"
+                                        title="Delete course"
+                                        aria-label="Delete {{ course.name }}">
                                         <i class="bi bi-trash3"></i>
                                     </a>
                                 </div>
@@ -138,7 +167,7 @@
 
                         {% empty %}
                         <tr>
-                            <td colspan="5" class="no-courses">
+                            <td colspan="7" class="no-courses">
                                 <i class="bi bi-journal-x"></i>
                                 <h3>No courses yet</h3>
                                 <p>Add your first course to get started.</p>
@@ -156,17 +185,21 @@
             </div>
 
             <!-- Search Result Message -->
-            <p id="courseSearchMessage"
-               class="search-message"
-               role="status"
-               aria-live="polite"
-               hidden>
+            <p
+                id="courseSearchMessage"
+                class="search-message"
+                role="status"
+                aria-live="polite"
+                hidden>
                 No matching courses found.
             </p>
 
+            <!-- Course Count -->
             <div class="course-count">
-                Showing <strong id="courseCount">{{ courses|length }}</strong>
-                of <strong id="totalCourseCount">{{ courses|length }}</strong>
+                Showing
+                <strong id="courseCount">{{ courses|length }}</strong>
+                of
+                <strong id="totalCourseCount">{{ courses|length }}</strong>
                 courses
             </div>
 

@@ -7,11 +7,7 @@ from apps.courses.views import (
     SubjectListView,
     SubjectCreateView,
     SubjectUpdateView,
-    SubjectDeleteView,
-    BatchListView,
-    BatchCreateView,
-    BatchUpdateView,
-    BatchDeleteView,
+    SubjectDeleteView
 )
 
 urlpatterns = [
@@ -26,10 +22,4 @@ urlpatterns = [
     path("subjects/create/", SubjectCreateView.as_view(), name="subject-create"),
     path("subjects/<int:pk>/update/", SubjectUpdateView.as_view(), name="subject-update"),
     path("subjects/<int:pk>/delete/", SubjectDeleteView.as_view(), name="subject-delete"),
-
-    # Batch URL
-    path("batches/", BatchListView.as_view(), name="batch-list"),
-    path("batches/create/", BatchCreateView.as_view(), name="batch-create"),
-    path("batches/<int:pk>/update/", BatchUpdateView.as_view(), name="batch-update"),
-    path("batches/<int:pk>/delete/", BatchDeleteView.as_view(), name="batch-delete"),
 ]

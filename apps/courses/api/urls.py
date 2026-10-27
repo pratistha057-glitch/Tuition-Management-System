@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.courses.api.views import BatchView, CourseView, SubjectView, UpdateBatchView, UpdateCourseView, UpdateSubjectView
+from apps.courses.api.views import CourseView, SubjectView, UpdateCourseView, UpdateSubjectView
 
 
 urlpatterns = [
@@ -7,6 +7,4 @@ urlpatterns = [
     path("<int:id>", UpdateCourseView.as_view()),
     path("subjects/", SubjectView.as_view()),
     path("subjects/<int:id>", UpdateSubjectView.as_view()),
-    path("batches/", BatchView.as_view()),
-    path("batches/<int:id>", UpdateBatchView.as_view()),
 ]
