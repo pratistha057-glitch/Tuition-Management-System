@@ -37,7 +37,7 @@ class CourseDeleteView(DeleteView):
 # Subject Views
 class SubjectListView(ListView):
     model = Subject
-    template_name = "courses/subjects/index.html"
+    template_name = "subjects/index.html"
     context_object_name = "subjects"
     ordering = ["name"]
 
@@ -45,20 +45,20 @@ class SubjectListView(ListView):
 class SubjectCreateView(CreateView):
     model = Subject
     form_class = SubjectForm
-    template_name = "courses/subjects/create.html"
+    template_name = "subjects/create.html"
     success_url = reverse_lazy("subject-list")
 
 
 class SubjectUpdateView(UpdateView):
     model = Subject
     form_class = SubjectForm
-    template_name = "courses/subjects/update.html"
+    template_name = "subjects/update.html"
     success_url = reverse_lazy("subject-list")
 
 
 class SubjectDeleteView(DeleteView):
     model = Subject
-    template_name = "courses/subjects/delete.html"
+    template_name = "subjects/delete.html"
     success_url = reverse_lazy("subject-list")
 
 

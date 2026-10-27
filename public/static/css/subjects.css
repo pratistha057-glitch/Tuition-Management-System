@@ -1,0 +1,578 @@
+
+:root {
+    --soft-blue: #AAC4F5;
+    --accent-blue: #8CA9FF;
+    --deep-blue: #3A69D6;
+    --card-bg: #FFF8DE;
+    --cream: #FFF2C6;
+    --white: #FFFFFF;
+    --text-dark: #20283A;
+    --border-color: #D2DFFF;
+    --danger: #DC3545;
+    --danger-hover: #BB2D3B;
+}
+
+/* General layout */
+
+body {
+    background:
+        radial-gradient(ellipse at top left, #FFF8DE 0, transparent 38%),
+        #F7F9FF;
+    color: var(--text-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 35px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.subject-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.subject-form-container,
+.subject-delete-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Page heading */
+
+.subject-page-heading {
+    margin: 0 0 24px;
+    padding: 8px 4px;
+}
+
+.subject-page-heading .page-eyebrow {
+    display: inline-block;
+    color: var(--deep-blue);
+    background: var(--cream);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.subject-page-heading h1 {
+    color: var(--deep-blue);
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+}
+
+.subject-page-heading p {
+    color: #596579;
+    margin: 0;
+}
+
+/* Cards */
+
+.subject-card,
+.subject-form-card,
+.subject-delete-card {
+    background: var(--card-bg);
+    border: 2px solid var(--accent-blue);
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgba(58, 105, 214, 0.12);
+    overflow: hidden;
+}
+
+.subject-card-header,
+.subject-form-header {
+    background: linear-gradient(120deg, #3A69D6, #6488EB);
+    color: var(--white);
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.subject-card-header h2,
+.subject-form-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.subject-card-body,
+.subject-form-body {
+    background: linear-gradient(145deg, #FFF8DE, #FFFDF5);
+    padding: 25px;
+}
+
+.subject-back-link {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.subject-back-link:hover {
+    color: var(--cream);
+}
+
+/* Buttons */
+
+.subject-btn-primary,
+.subject-btn-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--deep-blue);
+    color: var(--white);
+    border: 1px solid var(--deep-blue);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 800;
+    transition: background 0.2s ease;
+}
+
+.subject-btn-primary:hover,
+.subject-btn-save:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: var(--white);
+}
+
+.subject-btn-secondary,
+.subject-btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text-dark);
+    border: 1.5px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 700;
+}
+
+.subject-btn-secondary:hover,
+.subject-btn-cancel:hover {
+    background: var(--soft-blue);
+    color: var(--text-dark);
+}
+
+.subject-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--danger);
+    color: var(--white);
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 800;
+}
+
+.subject-btn-danger:hover {
+    background: var(--danger-hover);
+    color: var(--white);
+}
+
+/* Search */
+
+.subject-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.subject-search-group {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.subject-search {
+    flex: 1;
+    min-width: 120px;
+    max-width: none;
+    padding: 12px 16px;
+    border: 1.5px solid var(--soft-blue);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--text-dark);
+}
+
+.subject-search:focus {
+    outline: none;
+    border-color: var(--deep-blue);
+    box-shadow: 0 0 0 4px rgba(140, 169, 255, 0.22);
+}
+
+.subject-search-hint {
+    color: #596579;
+    font-size: 0.85rem;
+}
+
+/* Table */
+
+.subject-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.subject-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.subject-table th {
+    background: var(--soft-blue);
+    color: var(--text-dark);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 16px 12px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.subject-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.subject-table tbody tr:nth-child(even) {
+    background: #FFFDF5;
+}
+
+.subject-table tbody tr:hover {
+    background: #EEF3FF;
+}
+
+.subject-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.subject-name {
+    font-weight: 700;
+}
+
+.subject-description {
+    min-width: 200px;
+    max-width: 500px;
+    overflow-wrap: anywhere;
+}
+
+.subject-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.subject-action-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 1px solid var(--accent-blue);
+    color: var(--deep-blue);
+    background: var(--white);
+}
+
+.subject-action-btn:hover {
+    background: var(--soft-blue);
+    color: var(--deep-blue);
+}
+
+.subject-action-btn.delete {
+    color: var(--danger);
+    border-color: #F1AEB5;
+}
+
+.subject-action-btn.delete:hover {
+    background: #F8D7DA;
+}
+
+.subject-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--cream);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 14px;
+    margin-top: 18px;
+    font-size: 0.88rem;
+}
+
+.subject-count strong {
+    color: var(--deep-blue);
+}
+
+.subject-empty {
+    text-align: center;
+    padding: 30px;
+    color: #687386;
+}
+
+/* Create and update forms */
+
+.subject-form-section {
+    background: var(--white);
+    border: 1px solid var(--accent-blue);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-width: 0;
+    box-shadow: 0 3px 12px rgba(58, 105, 214, 0.05);
+}
+
+.subject-form-section-title {
+    color: var(--deep-blue);
+    background: #EEF3FF;
+    border-left: 4px solid var(--deep-blue);
+    border-radius: 5px;
+    padding: 10px 12px;
+    margin: -4px -4px 18px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.subject-form-field {
+    margin-bottom: 18px;
+}
+
+.subject-form-field:last-child {
+    margin-bottom: 0;
+}
+
+.subject-form-field label {
+    display: block;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.subject-form-field input,
+.subject-form-field select,
+.subject-form-field textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border: 1.5px solid var(--accent-blue);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    background: var(--white);
+    color: var(--text-dark);
+}
+
+.subject-form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.subject-form-field input:focus,
+.subject-form-field select:focus,
+.subject-form-field textarea:focus {
+    outline: none;
+    border-color: var(--deep-blue);
+    box-shadow: 0 0 0 2px rgba(58, 105, 214, 0.12);
+}
+
+.subject-field-error {
+    display: block;
+    color: #B42318;
+    font-size: 0.82rem;
+    margin-top: 5px;
+}
+
+.subject-required {
+    color: var(--danger);
+}
+
+.subject-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+/* Delete confirmation */
+
+.subject-delete-body {
+    background: var(--white);
+    padding: 30px;
+    text-align: center;
+}
+
+.subject-delete-icon {
+    color: var(--danger);
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.subject-delete-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.subject-delete-message {
+    color: #596579;
+    margin-bottom: 22px;
+}
+
+.subject-delete-name {
+    color: var(--text-dark);
+    font-weight: 800;
+}
+
+.subject-delete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Responsive layout */
+
+@media (max-width: 700px) {
+    body {
+        padding: 20px 0;
+    }
+
+    .subject-page-heading h1 {
+        font-size: 1.5rem;
+    }
+
+    .subject-card-header,
+    .subject-form-header {
+        padding: 18px;
+        align-items: flex-start;
+    }
+
+    .subject-card-header h2,
+    .subject-form-header h2 {
+        font-size: 1rem;
+    }
+
+    .subject-card-body,
+    .subject-form-body {
+        padding: 18px;
+    }
+
+    .subject-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .subject-search-group {
+        flex-wrap: wrap;
+    }
+
+    .subject-search {
+        flex-basis: 100%;
+    }
+
+    .subject-search-hint {
+        white-space: normal;
+    }
+
+    .subject-form-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 420px) {
+    .subject-form-header {
+        flex-direction: column;
+    }
+
+    .subject-form-actions > *,
+    .subject-delete-actions > * {
+        width: 100%;
+    }
+}
+
+
+/* Fix Subject Delete Page Alignment */
+.subject-delete-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.subject-delete-card {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.subject-delete-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+    box-sizing: border-box;
+}
+
+.subject-delete-title,
+.subject-delete-message,
+.subject-delete-name,
+.subject-delete-body .subject-description {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.subject-delete-name {
+    box-sizing: border-box;
+    padding: 14px 18px;
+    margin-top: 18px;
+}
+
+.subject-delete-body .subject-description {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.subject-delete-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.subject-delete-body form {
+    width: 100%;
+}
