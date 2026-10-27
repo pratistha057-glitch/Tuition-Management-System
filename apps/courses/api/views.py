@@ -1,8 +1,8 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from apps.courses.models import Course, Subject
-from apps.courses.api.serializers import CourseSerializer, SubjectSerializer
+from apps.courses.models import Course, Subject, Batch
+from apps.courses.api.serializers import CourseSerializer, SubjectSerializer, BatchSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -145,5 +145,78 @@ class UpdateSubjectView(GenericAPIView):
 
         return Response(
             {"message": "Subject Deleted Successfully"},
+            status=status.HTTP_204_NO_CONTENT
+        )
+
+
+
+
+
+class BatchView(GenericAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+
+    def get(self, request):
+        batches = Batch.objects.all()
+        serializer = BatchSerializer(batches, many=True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = BatchSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(
+                {
+                    "message": "Batch Created Successfully",
+                    "data": serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+
+class UpdateBatchView(GenericAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+
+    def get(self, request, id):
+        batch = get_object_or_404(Batch, id=id)
+        serializer = BatchSerializer(batch)
+
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        batch = get_object_or_404(Batch, id=id)
+        serializer = BatchSerializer(batch, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(
+                {
+                    "message": "Batch Updated Successfully",
+                    "data": serializer.data
+                }
+            )
+
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    def delete(self, request, id):
+        batch = get_object_or_404(Batch, id=id)
+        batch.delete()
+
+        return Response(
+            {"message": "Batch Deleted Successfully"},
             status=status.HTTP_204_NO_CONTENT
         )
