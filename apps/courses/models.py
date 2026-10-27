@@ -43,7 +43,7 @@ class Batch(models.Model):
     end_date = models.DateField()
 
     def __str__(self):
-        return f"{self.course.name} - {self.name}"
+        return self.name
 
     class Meta:
         db_table = "batches"
