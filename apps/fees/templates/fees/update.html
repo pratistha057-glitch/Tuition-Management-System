@@ -1,0 +1,125 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Fee Record | Tuition Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/fees.css' %}">
+</head>
+
+<body>
+<div class="container course-page">
+
+    <!-- Page Heading -->
+    <section class="course-page-heading">
+        <span class="page-eyebrow">TUITION MANAGEMENT SYSTEM</span>
+        <h1>Update Fee Record</h1>
+        <p>Make changes to the fee details below.</p>
+    </section>
+
+    <!-- Update Fee Card -->
+    <section class="course-card">
+
+        <header class="course-card-header">
+            <h2>Edit Fee Record</h2>
+
+            <a href="{% url 'fee-list' %}" class="btn-secondary-custom">
+                <i class="bi bi-arrow-left me-1"></i>Back to List
+            </a>
+        </header>
+
+        <div class="course-card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <!-- Student and Course Information -->
+                <div class="course-form-section">
+                    <h3 class="course-form-section-title">
+                        <i class="bi bi-journal-text"></i>
+                        Student and Course Information
+                    </h3>
+
+                    <div class="course-form-grid">
+                        {% for field in form %}
+                            {% if field.name == "student" or field.name == "course" %}
+                                <div class="course-form-field">
+                                    <label for="{{ field.id_for_label }}">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="required-mark">*</span>
+                                        {% endif %}
+                                    </label>
+
+                                    {{ field }}
+
+                                    {% for error in field.errors %}
+                                        <small class="field-error">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Payment Details -->
+                <div class="course-form-section">
+                    <h3 class="course-form-section-title">
+                        <i class="bi bi-sliders"></i>
+                        Payment Details
+                    </h3>
+
+                    <div class="course-form-grid">
+                        {% for field in form %}
+                            {% if field.name == "total_amount" or field.name == "paid_amount" or field.name == "due_date" or field.name == "status" %}
+                                <div class="course-form-field">
+                                    <label for="{{ field.id_for_label }}">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="required-mark">*</span>
+                                        {% endif %}
+                                    </label>
+
+                                    {{ field }}
+
+                                    {% for error in field.errors %}
+                                        <small class="field-error">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <small class="form-help">
+                        The remaining amount is calculated automatically from the total amount and paid amount.
+                    </small>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="course-form-actions">
+                    <a href="{% url 'fee-list' %}" class="btn-secondary-custom">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn-primary-custom">
+                        <i class="bi bi-check-circle me-1"></i>Save Changes
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

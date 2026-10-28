@@ -1,0 +1,228 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/fees.css' %}">
+</head>
+<body>
+
+<div class="container course-page">
+
+    <!-- Page Heading -->
+    <section class="course-page-heading">
+        <span class="page-eyebrow">TUITION MANAGEMENT SYSTEM</span>
+
+        <h1>
+            <i class="bi bi-cash-coin me-2"></i>
+            Fee Management
+        </h1>
+
+        <p>
+            Track student fees, monitor payments, and keep up with outstanding balances and due dates.
+        </p>
+    </section>
+
+    <!-- Fee List Card -->
+    <section class="course-card">
+
+        <header class="course-card-header">
+            <div>
+                <h2>Fee Records</h2>
+            </div>
+
+            <a href="{% url 'fee-create' %}" class="btn-primary-custom">
+                <i class="bi bi-plus-circle me-1"></i>
+                Add Fee Record
+            </a>
+        </header>
+
+        <div class="course-card-body">
+
+            <!-- Search -->
+            <form id="feeSearchForm" class="course-toolbar">
+                <div class="course-search-group">
+                    <input
+                        type="search"
+                        id="feeSearch"
+                        class="course-search"
+                        placeholder="Search by student, course, amount, due date or status..."
+                        aria-label="Search fee records"
+                    >
+
+                    <button type="submit" class="btn-primary-custom">
+                        <i class="bi bi-search me-1"></i>
+                        Search
+                    </button>
+
+                    <button
+                        type="button"
+                        id="clearSearch"
+                        class="btn-secondary-custom">
+                        Clear
+                    </button>
+                </div>
+
+                <span class="search-hint">Find a fee record</span>
+            </form>
+
+            <!-- Fee Table -->
+            <div class="course-table-wrapper">
+                <table class="course-table" id="feeTable">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Total Amount</th>
+                            <th>Paid Amount</th>
+                            <th>Remaining</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for fee in fees %}
+                        <tr>
+                            <!-- Student -->
+                            <td>
+                                <div class="course-name">
+                                    {{ fee.student }}
+                                </div>
+                            </td>
+
+                            <!-- Course -->
+                            <td>
+                                <span class="duration-badge">
+                                    {{ fee.course }}
+                                </span>
+                            </td>
+
+                            <!-- Total Amount -->
+                            <td>
+                                <span class="course-fee">
+                                    Rs. {{ fee.total_amount }}
+                                </span>
+                            </td>
+
+                            <!-- Paid Amount -->
+                            <td>
+                                <span class="course-fee">
+                                    Rs. {{ fee.paid_amount }}
+                                </span>
+                            </td>
+
+                            <!-- Remaining Amount -->
+                            <td>
+                                <span class="course-fee">
+                                    Rs. {{ fee.remaining_amount }}
+                                </span>
+                            </td>
+
+                            <!-- Due Date -->
+                            <td>
+                                <span class="duration-badge">
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    {{ fee.due_date|date:"M d, Y" }}
+                                </span>
+                            </td>
+
+                            <!-- Status -->
+                            <td>
+                                {% if fee.status == "Paid" %}
+                                    <span class="fee-status fee-status-paid">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        {{ fee.status }}
+                                    </span>
+                                {% elif fee.status == "Partially Paid" %}
+                                    <span class="fee-status fee-status-partial">
+                                        <i class="bi bi-hourglass-split me-1"></i>
+                                        {{ fee.status }}
+                                    </span>
+                                {% else %}
+                                    <span class="fee-status fee-status-pending">
+                                        <i class="bi bi-exclamation-circle me-1"></i>
+                                        {{ fee.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+                                <div class="course-actions">
+                                    <a
+                                        href="{% url 'fee-update' fee.pk %}"
+                                        class="btn-edit"
+                                        title="Edit fee record"
+                                        aria-label="Edit fee record">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <a
+                                        href="{% url 'fee-delete' fee.pk %}"
+                                        class="btn-delete"
+                                        title="Delete fee record"
+                                        aria-label="Delete fee record">
+                                        <i class="bi bi-trash3"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="no-courses">
+                                <i class="bi bi-receipt"></i>
+                                <h3>No fee records yet</h3>
+                                <p>Add your first fee record to get started.</p>
+
+                                <a href="{% url 'fee-create' %}"
+                                   class="btn-primary-custom">
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Add Your First Fee Record
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Search Result Message -->
+            <p
+                id="feeSearchMessage"
+                class="search-message"
+                role="status"
+                aria-live="polite"
+                hidden>
+                No matching fee records found.
+            </p>
+
+            <!-- Fee Count -->
+            <div class="course-count">
+                Showing
+                <strong id="feeCount">{{ fees|length }}</strong>
+                of
+                <strong id="totalFeeCount">{{ fees|length }}</strong>
+                fee records
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<script src="{% static 'js/fees.js' %}"></script>
+</body>
+</html>
