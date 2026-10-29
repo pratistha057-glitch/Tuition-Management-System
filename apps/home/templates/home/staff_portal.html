@@ -1,0 +1,158 @@
+{% extends "home/base.html" %}
+
+{% block title %}Staff Portal | ABC Tuition Centre{% endblock %}
+
+{% block content %}
+
+<section class="staff-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1>Staff Portal</h1>
+            <p>Manage student attendance and view student records.</p>
+        </div>
+    </div>
+
+    <!-- Staff Welcome -->
+    <section class="welcome-card">
+        <div>
+            <h2>
+                Welcome{% if staff_member %}, {{ staff_member.username }}{% endif %}!
+            </h2>
+            <p>Here is your student and attendance overview.</p>
+        </div>
+    </section>
+
+    <!-- Student List -->
+    <section class="dashboard-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Students</h2>
+                <p>Browse students registered at the tuition centre.</p>
+            </div>
+
+            <span class="record-count">
+                {{ students|length }} students
+            </span>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Username</th>
+                        <th>Class</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.user.username }}</td>
+                        <td>{{ student.class_name }}</td>
+                        <td>{{ student.phone }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            No students have been registered yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- Attendance Records -->
+    <section class="dashboard-section">
+
+        <div class="section-header">
+            <div>
+                <h2>Attendance Records</h2>
+                <p>Review attendance records for registered students.</p>
+            </div>
+        </div>
+
+        <!-- Attendance Filter -->
+        <form method="get" class="filter-form">
+
+            <div class="form-group">
+                <label for="student_id">Filter by student</label>
+
+                <select name="student_id" id="student_id">
+                    <option value="">All students</option>
+
+                    {% for student in students %}
+                    <option
+                        value="{{ student.id }}"
+                        {% if selected_student_id == student.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ student.student_id }} - {{ student.user.username }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">
+                    Apply Filter
+                </button>
+
+                <a href="{% url 'staff_portal' %}" class="btn btn-secondary">
+                    Clear Filter
+                </a>
+            </div>
+
+        </form>
+
+        <!-- Attendance Table -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student</th>
+                        <th>Class</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for record in attendance_records %}
+                    <tr>
+                        <td>{{ record.student.student_id }}</td>
+                        <td>{{ record.student.user.username }}</td>
+                        <td>{{ record.student.class_name }}</td>
+                        <td>{{ record.date|date:"M d, Y" }}</td>
+                        <td>
+                            <span class="status-badge {% if record.status == 'Present' %}status-present{% else %}status-absent{% endif %}">
+                                {{ record.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            No attendance records found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

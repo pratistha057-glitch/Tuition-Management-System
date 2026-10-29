@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ABC Tuition Centre{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Header and Navigation -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="brand">
+                ABC Tuition Centre
+            </a>
+
+            <button type="button" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                ☰
+            </button>
+
+            <div class="nav-links">
+                <a href="{% url 'home' %}#home">Home</a>
+                <a href="{% url 'home' %}#about">About</a>
+                <a href="{% url 'home' %}#services">Services</a>
+                <a href="{% url 'home' %}#contact">Contact</a>
+                <a href="{% url 'admin_portal' %}">Admin Portal</a>
+                <a href="{% url 'staff_portal' %}">Staff Portal</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+    <section class="messages" aria-live="polite">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- Page-specific content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <h2>ABC Tuition Centre</h2>
+
+            <p>
+                Supporting students on their learning journey.
+            </p>
+
+            <div class="footer-locations">
+                <h3>Our Locations</h3>
+                <p>Rabibhawan, Nepal</p>
+            </div>
+
+            <p class="footer-copyright">
+                &copy; {% now "Y" %} ABC Tuition Centre.
+                All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/home.js' %}" defer></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

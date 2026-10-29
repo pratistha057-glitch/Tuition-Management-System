@@ -1,0 +1,258 @@
+{% extends "home/base.html" %}
+
+{% block title %}ABC Tuition Centre - Home{% endblock %}
+
+{% block content %}
+
+<!-- Home / Hero Section -->
+<section id="home" class="home-hero">
+    <div class="home-container hero-grid">
+        <div class="hero-content">
+            <span class="hero-badge">Welcome to Excellence</span>
+
+            <h1>Empowering Minds at ABC Tuition Centre</h1>
+
+            <p class="hero-description">
+                Providing quality academic coaching, personalized
+                attention, and structured learning to help students
+                excel in their studies.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-primary">
+                    Explore Courses
+                </a>
+
+                <a href="#contact" class="btn btn-secondary">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="hero-image-card">
+                <img
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
+                    alt="Students learning together"
+                    class="hero-image"
+                >
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="home-section about-section">
+    <div class="home-container">
+        <div class="section-heading">
+            <h2>About ABC Tuition Centre</h2>
+            <p>
+                Founded with a passion for excellence, we help students
+                turn hard work into academic achievement.
+            </p>
+        </div>
+
+        <div class="about-grid">
+            <div class="content-card philosophy-card">
+                <h3>Our Teaching Philosophy</h3>
+
+                <p>
+                    At ABC Tuition Centre, we believe every student
+                    learns differently. Our approach focuses on clear
+                    explanations, regular attendance monitoring,
+                    structured batch schedules, and consistent
+                    academic progress.
+                </p>
+
+                <p>
+                    Whether students are preparing for examinations
+                    or strengthening their foundations, we aim to
+                    build confidence and encourage lifelong learning.
+                </p>
+            </div>
+
+            <div class="about-stats-grid">
+                <div class="stat-card">
+                    <h3>10+</h3>
+                    <p>Years of Excellence</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>500+</h3>
+                    <p>Successful Students</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>15+</h3>
+                    <p>Expert Faculty</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>100%</h3>
+                    <p>Dedication</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="home-section services-section">
+    <div class="home-container">
+        <div class="section-heading">
+            <h2>Our Academic Services</h2>
+            <p>
+                Learning opportunities designed around different
+                schedules and academic needs.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <article class="content-card service-card">
+                <div>
+                    <span class="service-number">01</span>
+                    <h3>Morning Batch Classes</h3>
+
+                    <p>
+                        Focused academic preparation, concept
+                        development, and regular attendance tracking
+                        to help students start their day productively.
+                    </p>
+                </div>
+
+                <span class="service-badge">
+                    Morning Shift
+                </span>
+            </article>
+
+            <article class="content-card service-card">
+                <div>
+                    <span class="service-number">02</span>
+                    <h3>Afternoon Support</h3>
+
+                    <p>
+                        Dedicated doubt-clearing sessions, guided
+                        practice, collaborative learning, and
+                        additional academic support.
+                    </p>
+                </div>
+
+                <span class="service-badge">
+                    Afternoon Shift
+                </span>
+            </article>
+
+            <article class="content-card service-card">
+                <div>
+                    <span class="service-number">03</span>
+                    <h3>Evening Board Preparation</h3>
+
+                    <p>
+                        School-level curriculum reinforcement,
+                        examination practice, and revision of
+                        essential academic concepts.
+                    </p>
+                </div>
+
+                <span class="service-badge">
+                    Evening Shift
+                </span>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="home-section contact-section">
+    <div class="home-container">
+        <div class="section-heading">
+            <h2>Contact Us</h2>
+            <p>
+                Have questions about admissions or batch schedules?
+                We'd love to hear from you.
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="content-card contact-details">
+                <h3>Get in Touch</h3>
+
+                <div class="contact-item">
+                    <span class="contact-label">Address</span>
+                    <p>RabiBhawan, Lalitpur, Nepal</p>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-label">Phone</span>
+                    <p>+977 1-5500000</p>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <p>info@abctuition.edu.np</p>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-label">Office Hours</span>
+                    <p>Sunday – Friday, 6:00 AM – 8:00 PM</p>
+                </div>
+            </div>
+
+            <div class="content-card contact-form-card">
+                <div
+                    id="formAlert"
+                    class="form-alert"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                >
+                    Thank you! Your message has been received.
+                </div>
+
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="fullName">Your Name</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="name@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="4"
+                            placeholder="Write your inquiry here..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary contact-submit"
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

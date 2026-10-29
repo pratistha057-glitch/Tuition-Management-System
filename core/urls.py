@@ -31,6 +31,7 @@ urlpatterns = [
     path("fees/", include("apps.fees.urls")),
     path('payment/', include('apps.payments.urls')),
     path('attendance/',include('apps.attendance.urls')),
+    path('home/',include('apps.home.urls')),
 ]
 
 if settings.DEBUG:
