@@ -1,0 +1,203 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Sheet | Tuition Management</title>
+
+    <link rel="stylesheet" href="{% static 'css/attendance.css' %}">
+    <script src="{% static 'js/attendance.js' %}" defer></script>
+</head>
+
+<body>
+
+    <main class="attendance-page">
+
+        <header class="page-header">
+            <div class="heading-icon">✓</div>
+
+            <div>
+                <p class="eyebrow">STUDENT MANAGEMENT</p>
+                <h1>Attendance Sheet</h1>
+                <p class="page-description">
+                    Record and manage daily student attendance.
+                </p>
+            </div>
+        </header>
+
+        <!-- Select Date -->
+        <section class="content-card date-card">
+            <form method="GET" class="date-form">
+                <div class="form-group">
+                    <label for="date">Attendance Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value="{{ selected_date }}"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="button button-secondary">
+                    View Attendance
+                </button>
+            </form>
+        </section>
+
+        <!-- Attendance Table -->
+        <section class="content-card">
+
+            <div class="table-heading">
+                <div>
+                    <h2>Student Records</h2>
+                    <p>Choose Present or Absent for each student.</p>
+                </div>
+
+                <span class="date-label">{{ selected_date }}</span>
+            </div>
+
+            <!-- Search Student -->
+            <div class="search-section">
+                <label for="student-search">Search Student</label>
+
+                <div class="search-box">
+                    <span class="search-icon">⌕</span>
+                    <input
+                        type="search"
+                        id="student-search"
+                        placeholder="Search by student name or ID..."
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+
+            <form method="POST" id="attendance-form">
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="date"
+                    value="{{ selected_date }}"
+                >
+
+                <div class="table-wrapper">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th class="status-column">Attendance Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="attendance-table-body">
+                            {% for item in students_data %}
+                            <tr class="student-row">
+                                <td class="row-number">
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <td class="student-id">
+                                    {{ item.student.student_id }}
+                                </td>
+
+                                <td class="student-name">
+                                    {{ item.student.user.username }}
+                                </td>
+
+                                <td>
+                                    <div class="status-options">
+
+                                        <input
+                                            type="radio"
+                                            class="status-input"
+                                            name="status_{{ item.student.id }}"
+                                            id="present_{{ item.student.id }}"
+                                            value="Present"
+                                            {% if item.status == 'Present' %}checked{% endif %}
+                                        >
+
+                                        <label
+                                            class="status-label present-label"
+                                            for="present_{{ item.student.id }}"
+                                        >
+                                            Present
+                                        </label>
+
+                                        <input
+                                            type="radio"
+                                            class="status-input"
+                                            name="status_{{ item.student.id }}"
+                                            id="absent_{{ item.student.id }}"
+                                            value="Absent"
+                                            {% if item.status == 'Absent' %}checked{% endif %}
+                                        >
+
+                                        <label
+                                            class="status-label absent-label"
+                                            for="absent_{{ item.student.id }}"
+                                        >
+                                            Absent
+                                        </label>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="empty-message">
+                                    No students found. Add students before
+                                    marking attendance.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="no-search-results" class="no-search-results" hidden>
+                    No students match your search.
+                </p>
+
+                <!-- Save Button -->
+                <div class="table-actions">
+                    <button type="submit" class="button button-primary">
+                        Save Attendance
+                    </button>
+                </div>
+            </form>
+
+            <!-- Attendance Summary at Bottom -->
+            <div class="attendance-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Total student =</span>
+                    <strong id="total-students">0</strong>
+                </div>
+
+                <div class="summary-item present-summary">
+                    <span class="summary-label">Present student =</span>
+                    <strong id="present-students">0</strong>
+                </div>
+
+                <div class="summary-item absent-summary">
+                    <span class="summary-label">Absent student =</span>
+                    <strong id="absent-students">0</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="page-footer">
+            Tuition Management System
+        </footer>
+
+    </main>
+
+</body>
+</html>

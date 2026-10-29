@@ -1,0 +1,448 @@
+
+:root {
+    --cream: #FFF8DE;
+    --soft-blue: #AAC4F5;
+    --accent-blue: #8CA9FF;
+    --deep-blue: #3A69D6;
+    --card-cream: #FFF2C6;
+    --text-color: #20283A;
+    --muted-text: #596579;
+    --border-color: #D2DFFF;
+    --white: #FFFFFF;
+    --success-bg: #E7F5EC;
+    --success-text: #287747;
+    --danger-bg: #FFF0EE;
+    --danger-text: #C84646;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--cream);
+    color: var(--text-color);
+}
+
+.attendance-page {
+    width: min(1200px, 94%);
+    margin: 40px auto;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.heading-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--deep-blue);
+    color: var(--white);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    color: var(--deep-blue);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: clamp(28px, 4vw, 36px);
+}
+
+.page-description {
+    margin: 8px 0 0;
+    color: var(--muted-text);
+    line-height: 1.5;
+}
+
+.content-card {
+    margin-bottom: 24px;
+    padding: 26px;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(58, 105, 214, 0.07);
+}
+
+.date-form {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 220px;
+}
+
+.form-group label,
+.search-section > label {
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-group input,
+.search-box input {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--text-color);
+    font: inherit;
+    outline: none;
+}
+
+.form-group input:focus,
+.search-box input:focus {
+    border-color: var(--deep-blue);
+    box-shadow: 0 0 0 3px rgba(140, 169, 255, 0.25);
+}
+
+.button {
+    min-height: 44px;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 9px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.button-primary {
+    background: var(--deep-blue);
+    color: var(--white);
+}
+
+.button-primary:hover {
+    background: #3159BD;
+}
+
+.button-secondary {
+    background: var(--soft-blue);
+    color: var(--text-color);
+}
+
+.button-secondary:hover {
+    background: var(--accent-blue);
+}
+
+.table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.table-heading h2 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 22px;
+}
+
+.table-heading p {
+    margin: 7px 0 0;
+    color: var(--muted-text);
+    font-size: 14px;
+}
+
+.date-label {
+    padding: 9px 13px;
+    border-radius: 8px;
+    background: var(--soft-blue);
+    color: var(--text-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.search-section {
+    max-width: 480px;
+    margin-bottom: 22px;
+}
+
+.search-section > label {
+    display: block;
+    margin-bottom: 9px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    padding-left: 42px;
+    background: var(--white);
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: var(--muted-text);
+    font-size: 23px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.attendance-table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+}
+
+/* Deep-blue table heading */
+.attendance-table thead th {
+    padding: 16px;
+    background: var(--deep-blue);
+    color: var(--white);
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.attendance-table thead th:first-child {
+    width: 65px;
+}
+
+.attendance-table .status-column {
+    text-align: center;
+}
+
+/* Yellow table body */
+.attendance-table tbody tr {
+    background: var(--card-cream);
+    transition: background 0.15s ease;
+}
+
+.attendance-table tbody tr:nth-child(even) {
+    background: var(--cream);
+}
+
+.attendance-table tbody tr:hover {
+    background: #FFE9A0;
+}
+
+.attendance-table tbody td {
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    vertical-align: middle;
+}
+
+.attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.row-number,
+.student-id {
+    font-weight: 700;
+}
+
+.student-id {
+    white-space: nowrap;
+}
+
+.student-name {
+    font-weight: 600;
+}
+
+.status-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.status-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.status-label {
+    display: inline-block;
+    min-width: 88px;
+    padding: 9px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--white);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.present-label {
+    color: var(--success-text);
+    border-color: #B9DFC7;
+}
+
+.absent-label {
+    color: var(--danger-text);
+    border-color: #F0C9C4;
+}
+
+.status-input:checked + .status-label.present-label {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success-text);
+}
+
+.status-input:checked + .status-label.absent-label {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border-color: var(--danger-text);
+}
+
+.status-input:focus-visible + .status-label {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+}
+
+.attendance-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-color);
+}
+
+.summary-item {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 190px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-cream);
+}
+
+.summary-label {
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.summary-item strong {
+    color: var(--deep-blue);
+    font-size: 21px;
+}
+
+.present-summary {
+    background: var(--success-bg);
+    border-color: #B9DFC7;
+}
+
+.present-summary strong {
+    color: var(--success-text);
+}
+
+.absent-summary {
+    background: var(--danger-bg);
+    border-color: #F0C9C4;
+}
+
+.absent-summary strong {
+    color: var(--danger-text);
+}
+
+.empty-message,
+.no-search-results {
+    padding: 28px 16px;
+    color: var(--muted-text);
+    text-align: center;
+}
+
+.no-search-results {
+    margin: 0;
+}
+
+.page-footer {
+    padding: 10px 0;
+    color: var(--muted-text);
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 640px) {
+    .attendance-page {
+        width: 94%;
+        margin: 24px auto;
+    }
+
+    .content-card {
+        padding: 17px;
+    }
+
+    .date-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-group {
+        min-width: 0;
+    }
+
+    .table-actions .button {
+        width: 100%;
+    }
+
+    .attendance-summary {
+        flex-direction: column;
+    }
+
+    .summary-item {
+        min-width: 0;
+    }
+}

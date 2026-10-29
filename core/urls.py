@@ -30,7 +30,7 @@ urlpatterns = [
     path("courses/", include("apps.courses.urls")),
     path("fees/", include("apps.fees.urls")),
     path('payment/', include('apps.payments.urls')),
-
+    path('attendance/',include('apps.attendance.urls')),
 ]
 
 if settings.DEBUG:
