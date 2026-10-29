@@ -1,0 +1,360 @@
+
+/* =========================================================
+   1. VARIABLES
+   ========================================================= */
+
+:root {
+    --cream: #FFFDF4;
+    --soft-blue: #EAF0FF;
+    --accent-blue: #AAC4F5;
+    --deep-blue: #3A69D6;
+    --card-blue: #F3F7FF;
+
+    --text-color: #20283A;
+    --muted-text: #596579;
+    --border-color: #E2ECFF;
+    --white: #FFFFFF;
+
+    --shadow-md: 0 8px 25px rgba(58, 105, 214, 0.08);
+    --shadow-lg: 0 16px 45px rgba(32, 40, 58, 0.10);
+
+    --radius-md: 0.85rem;
+    --radius-lg: 1.25rem;
+    --transition: all 0.2s ease;
+}
+
+
+/* =========================================================
+   2. GLOBAL STYLES
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(170, 196, 245, 0.30),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(234, 240, 255, 0.90),
+            transparent 35%
+        ),
+        var(--cream);
+}
+
+
+/* =========================================================
+   3. LOGIN PAGE LAYOUT
+   ========================================================= */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 24px;
+}
+
+
+/* =========================================================
+   4. LOGIN CARD
+   ========================================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 42px 38px 30px;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* =========================================================
+   5. LOGIN HEADER
+   ========================================================= */
+
+.login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+    background: var(--deep-blue);
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(58, 105, 214, 0.22);
+}
+
+.brand-badge {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: var(--soft-blue);
+    color: var(--deep-blue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.login-header h1 {
+    margin: 0 0 10px;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.login-subtitle {
+    max-width: 310px;
+    margin: 0;
+    color: var(--muted-text);
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   6. FORM FIELDS
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.form-control,
+.form-select {
+    min-height: 50px;
+    padding: 12px 15px;
+    border: 1px solid #DCE5F5;
+    border-radius: 10px;
+    background-color: #FCFDFF;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.form-control::placeholder {
+    color: #98A2B3;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--deep-blue);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(58, 105, 214, 0.12);
+    outline: none;
+}
+
+
+/* =========================================================
+   7. LOGIN BUTTON
+   ========================================================= */
+
+.login-button {
+    width: 100%;
+    min-height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 18px;
+    border: 1px solid var(--deep-blue);
+    border-radius: 50px;
+    background: var(--deep-blue);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.login-button span {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.login-button:hover {
+    background: #2D56B7;
+    border-color: #2D56B7;
+    box-shadow: 0 6px 16px rgba(58, 105, 214, 0.22);
+    transform: translateY(-1px);
+}
+
+.login-button:hover span {
+    transform: translateX(3px);
+}
+
+.login-button:focus-visible,
+.home-button:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 4px;
+}
+
+
+/* =========================================================
+   8. BACK TO HOME BUTTON
+   ========================================================= */
+
+.home-button {
+    width: 100%;
+    min-height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 12px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    background: var(--white);
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.home-button:hover {
+    background: var(--card-blue);
+    border-color: var(--accent-blue);
+    color: var(--deep-blue);
+}
+
+
+/* =========================================================
+   9. DJANGO MESSAGES
+   ========================================================= */
+
+.login-alert {
+    margin-bottom: 22px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   10. LOGIN FOOTER
+   ========================================================= */
+
+.login-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 27px;
+    padding-top: 22px;
+    border-top: 1px solid #EEF2FA;
+    color: var(--muted-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.footer-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #68B889;
+}
+
+
+/* =========================================================
+   11. PAGE FOOTER
+   ========================================================= */
+
+.page-footer {
+    margin: 22px 0 0;
+    color: var(--muted-text);
+    font-size: 0.78rem;
+    text-align: center;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   12. RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 480px) {
+    .login-page {
+        justify-content: center;
+        padding: 24px 15px;
+    }
+
+    .login-card {
+        padding: 32px 23px 25px;
+        border-radius: 18px;
+    }
+
+    .brand-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        font-size: 1.6rem;
+    }
+
+    .login-header {
+        margin-bottom: 27px;
+    }
+
+    .login-header h1 {
+        font-size: 1.55rem;
+    }
+
+    .login-subtitle {
+        font-size: 0.86rem;
+    }
+
+    .form-group {
+        margin-bottom: 19px;
+    }
+}
+
+@media (max-width: 350px) {
+    .login-card {
+        padding: 27px 18px 22px;
+    }
+
+    .login-header h1 {
+        font-size: 1.4rem;
+    }
+}

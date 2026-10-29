@@ -5,11 +5,13 @@ from apps.accounts.api.serializers import UserProfileSerializer
 from apps.accounts.models import UserProfile
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
+from apps.accounts.api.permissions import IsAdmin
 
 
 class UserProfileView(GenericAPIView):
     queryset = UserProfile
     serializer_class = UserProfileSerializer
+    permission_classes = [IsAdmin]
 
     def get(self, request, *args, **kwargs):
         data = UserProfile.objects.all()
@@ -36,6 +38,7 @@ class UserProfileView(GenericAPIView):
 class UpdateUserProfileView(GenericAPIView):
     queryset = UserProfile
     serializer_class = UserProfileSerializer
+    permission_classes = [IsAdmin]
 
     def get(self, request, id):
         data = get_object_or_404(UserProfile, id=id)

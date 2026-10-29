@@ -4,12 +4,19 @@ from rest_framework import status
 from apps.students.api.serializers import StudentSerializer
 from apps.students.models import Student
 from django.shortcuts import get_object_or_404
+from apps.accounts.api.permissions import IsAdmin, IsAdminOrTeacher
 
 
 
 class StudentView(GenericAPIView):
     queryset = Student
     serializer_class = StudentSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, *args, **kwargs):
         data = Student.objects.all()
@@ -38,6 +45,12 @@ class StudentView(GenericAPIView):
 class UpdateStudentView(GenericAPIView):
     queryset = Student
     serializer_class = StudentSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, id):
         data = get_object_or_404(Student, id=id)

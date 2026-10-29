@@ -4,11 +4,17 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from apps.fees.models import FeesModel
 from apps.fees.api.serializers import FeeSerializer
-
+from apps.accounts.api.permissions import IsAdmin, IsAdminOrTeacher
 
 class FeeView(GenericAPIView):
     queryset = FeesModel
     serializer_class = FeeSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, *args, **kwargs):
         data = FeesModel.objects.all()
@@ -34,6 +40,12 @@ class FeeView(GenericAPIView):
 class UpdateFeeView(GenericAPIView):
     queryset = FeesModel
     serializer_class = FeeSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, id):
         data = get_object_or_404(FeesModel, id=id)

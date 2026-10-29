@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-
+from apps.accounts.api.permissions import IsAdmin, IsAdminOrTeacher
 from apps.attendance.models import AttendanceModel
 from apps.attendance.api.serializers import AttendanceSerializer
 
@@ -10,6 +10,7 @@ from apps.attendance.api.serializers import AttendanceSerializer
 class AttendanceView(GenericAPIView):
     queryset = AttendanceModel
     serializer_class = AttendanceSerializer
+    permission_classes = [IsAdminOrTeacher]
 
     def get(self, request, *args, **kwargs):
         data = AttendanceModel.objects.all()
@@ -35,6 +36,13 @@ class AttendanceView(GenericAPIView):
 class UpdateAttendanceView(GenericAPIView):
     queryset = AttendanceModel
     serializer_class = AttendanceSerializer
+    permission_classes = [IsAdminOrTeacher]
+
+    def get_permissions(self):
+        if self.request.method == "DELETE":
+            return [IsAdmin()]
+
+        return [IsAdminOrTeacher()]
 
     def get(self, request, id):
         data = get_object_or_404(AttendanceModel, id=id)
@@ -64,3 +72,4 @@ class UpdateAttendanceView(GenericAPIView):
             {"message": "Attendance deleted successfully"},
             status=status.HTTP_204_NO_CONTENT
         )
+    

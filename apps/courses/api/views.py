@@ -4,11 +4,18 @@ from rest_framework import status
 from apps.courses.models import Course, Subject
 from apps.courses.api.serializers import CourseSerializer, SubjectSerializer
 from django.shortcuts import get_object_or_404
+from apps.accounts.api.permissions import IsAdmin, IsAdminOrTeacher
 
 
 class CourseView(GenericAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request):
         courses = Course.objects.all()
@@ -40,6 +47,12 @@ class CourseView(GenericAPIView):
 class UpdateCourseView(GenericAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, id):
         course = get_object_or_404(Course, id=id)
@@ -82,6 +95,12 @@ class SubjectView(GenericAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
+
     def get(self, request):
         subjects = Subject.objects.all()
         serializer = SubjectSerializer(subjects, many=True)
@@ -113,6 +132,12 @@ class SubjectView(GenericAPIView):
 class UpdateSubjectView(GenericAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsAdminOrTeacher()]
+
+        return [IsAdmin()]
 
     def get(self, request, id):
         subject = get_object_or_404(Subject, id=id)
