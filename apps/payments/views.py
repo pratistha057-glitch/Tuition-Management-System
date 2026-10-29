@@ -1,5 +1,6 @@
 from decimal import Decimal
 import requests
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db import transaction
 from django.http import HttpResponse
@@ -8,13 +9,13 @@ from django.shortcuts import render
 from apps.fees.models import FeesModel
 from apps.payments.models import PaymentModel, Status
 
-
+@login_required(login_url="/accounts/login/")
 def pay_fee_view(request, fee_id):
     fee = get_object_or_404(FeesModel, pk=fee_id)
 
     return render(request,'payments/pay_fee.html',{'fee': fee})
 
-
+@login_required(login_url="/accounts/login/")
 def khalti_verify_view(request):
     pidx = request.GET.get('pidx')
 
@@ -120,15 +121,3 @@ def khalti_verify_view(request):
 
 
 
-
-def test_payment_page(request):
-    fees = FeesModel.objects.select_related(
-        "student",
-        "course",
-    ).all()
-
-    return render(
-        request,
-        "payments/test_payment.html",
-        {"fees": fees},
-    )
