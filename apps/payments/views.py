@@ -117,7 +117,7 @@ def khalti_verify_view(request):
 
         fee_record.save()
 
-    return redirect('fee-list')
+    return redirect('profile')
 
 
 

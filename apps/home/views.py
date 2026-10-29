@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.students.models import Student
 from apps.courses.models import Course
 from apps.attendance.models import AttendanceModel, Status
@@ -11,6 +11,11 @@ def home_view(request):
 
 
 # Admin portal
+@login_required(login_url="/accounts/login/")
+@user_passes_test(
+    lambda user: hasattr(user, "userprofile")
+    and user.userprofile.role == "ADMIN"
+)
 def admin_portal(request):
     recent_students = Student.objects.select_related(
         "user"
@@ -35,6 +40,11 @@ def admin_portal(request):
 
 
 # Staff portal
+@login_required(login_url="/accounts/login/")
+@user_passes_test(
+    lambda user: hasattr(user, "userprofile")
+    and user.userprofile.role in ["ADMIN", "TEACHER"]
+)
 def staff_portal(request):
     students = Student.objects.select_related(
         "user"
@@ -66,6 +76,11 @@ def staff_portal(request):
 
 
 # Student portal
+@login_required(login_url="/accounts/login/")
+@user_passes_test(
+    lambda user: hasattr(user, "userprofile")
+    and user.userprofile.role == "STUDENT"
+)
 def student_portal(request):
     student = None
 

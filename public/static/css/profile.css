@@ -1,0 +1,353 @@
+
+:root {
+    --bg-outer: #FFFFFF;
+    --soft-blue: #AAC4F5;
+    --accent-blue: #8CA9FF;
+    --deep-blue: #3A69D6;
+    --card-bg: #FFF8DE;
+    --badge-cream: #FFF2C6;
+    --white: #FFFFFF;
+    --text-dark: #20283A;
+    --border-color: #D2DFFF;
+}
+
+.profile-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px 0;
+    color: var(--text-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.page-title {
+    color: var(--deep-blue);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.id-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--white) 100%);
+    border: 3px solid var(--deep-blue);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(58, 105, 214, 0.2);
+    overflow: hidden;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.id-card::after {
+    content: "TMS ID";
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-size: 7rem;
+    font-weight: 900;
+    color: rgba(58, 105, 214, 0.04);
+    letter-spacing: -2px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.id-card-header {
+    background-color: var(--deep-blue);
+    color: var(--white);
+    padding: 16px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.id-card-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-badge {
+    background-color: var(--badge-cream);
+    color: var(--deep-blue);
+    font-weight: 800;
+    font-size: 0.78rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.id-card-body {
+    padding: 32px 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.id-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.id-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-blue);
+    box-shadow: 0 8px 20px rgba(58, 105, 214, 0.25);
+    background-color: var(--white);
+}
+
+.avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    color: var(--deep-blue);
+}
+
+.status-dot {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #22C55E;
+    border: 3px solid var(--white);
+    border-radius: 50%;
+}
+
+.id-details {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+}
+
+.id-detail-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.id-detail-item.full-width {
+    grid-column: span 2;
+}
+
+.id-label {
+    font-weight: 800;
+    font-size: 0.78rem;
+    color: var(--deep-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+}
+
+.id-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    background-color: var(--white);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--accent-blue);
+    overflow-wrap: anywhere;
+}
+
+.fee-card {
+    background-color: var(--white);
+    border: 2px solid var(--accent-blue);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(140, 169, 255, 0.15);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.fee-header {
+    background-color: var(--soft-blue);
+    padding: 18px 26px;
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.fee-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--deep-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fee-table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.fee-table thead th {
+    background-color: var(--deep-blue);
+    color: var(--white);
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.fee-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--white);
+}
+
+.fee-table tbody tr:hover {
+    background-color: #F8FBFF;
+}
+
+.fee-table td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.amount {
+    color: var(--deep-blue) !important;
+    font-weight: 800;
+}
+
+.badge-paid,
+.badge-pending {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-paid {
+    background-color: #D1E7DD;
+    color: #0F5132;
+    border: 1.5px solid #BADBCE;
+}
+
+.badge-pending {
+    background-color: #FFF3CD;
+    color: #664D03;
+    border: 1.5px solid #FFECB5;
+}
+
+.fee-footer {
+    background-color: var(--card-bg);
+    padding: 22px 26px;
+    border-top: 2px solid var(--accent-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-pay-fee {
+    background-color: var(--deep-blue);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 14px rgba(58, 105, 214, 0.35);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-pay-fee:hover {
+    background-color: var(--accent-blue);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.empty-message {
+    text-align: center;
+    padding: 28px !important;
+    color: #6c757d;
+}
+
+.section-heading {
+    color: var(--deep-blue);
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.attendance-summary {
+    flex-wrap: wrap;
+}
+
+.attendance-summary h3 {
+    color: var(--deep-blue);
+    font-weight: 800;
+    margin: 5px 0 0;
+}
+
+.summary-label {
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 20px 0;
+    }
+
+    .id-card-body {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .id-details {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .id-detail-item.full-width {
+        grid-column: span 1;
+    }
+
+    .fee-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .btn-pay-fee {
+        justify-content: center;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .id-card-header h3 {
+        font-size: 1rem;
+    }
+}

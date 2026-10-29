@@ -1,126 +1,145 @@
-
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject Management | Tuition Management</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{% static 'css/subjects.css' %}">
-</head>
-<body>
+{% block title %}Subject Management | Tuition Management{% endblock %}
 
-<div class="container subject-page">
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{% static 'css/subjects.css' %}">
+{% endblock %}
 
-    <section class="subject-page-heading">
-        <span class="page-eyebrow">TUITION MANAGEMENT SYSTEM</span>
-        <h1><i class="bi bi-book-half me-2"></i>Subject Management</h1>
-        <p>Manage subjects and their descriptions.</p>
-    </section>
+{% block content %}
+<div class="subject-page">
+    <div class="container">
 
-    <section class="subject-card">
+        <section class="subject-page-heading">
+            <span class="page-eyebrow">TUITION MANAGEMENT SYSTEM</span>
+            <h1>
+                <i class="bi bi-book-half me-2"></i>
+                Subject Management
+            </h1>
+            <p>Manage subjects and their descriptions.</p>
+        </section>
 
-        <header class="subject-card-header">
-            <h2><i class="bi bi-journal-bookmark-fill me-2"></i>Subject List</h2>
+        <section class="subject-card">
 
-            <a href="{% url 'subject-create' %}" class="subject-btn-primary">
-                <i class="bi bi-plus-circle me-1"></i>Add Subject
-            </a>
-        </header>
+            <header class="subject-card-header">
+                <h2>
+                    <i class="bi bi-journal-bookmark-fill me-2"></i>
+                    Subject List
+                </h2>
 
-        <div class="subject-card-body">
+                <a href="{% url 'subject-create' %}" class="subject-btn-primary">
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add Subject
+                </a>
+            </header>
 
-            <form id="subjectSearchForm" class="subject-toolbar">
-                <div class="subject-search-group">
-                    <input
-                        type="search"
-                        id="subjectSearch"
-                        class="subject-search"
-                        placeholder="Search by subject name or description..."
-                        aria-label="Search subjects"
-                    >
+            <div class="subject-card-body">
 
-                    <button type="submit" class="subject-btn-primary">
-                        <i class="bi bi-search me-1"></i>Search
-                    </button>
+                <form id="subjectSearchForm" class="subject-toolbar">
+                    <div class="subject-search-group">
+                        <input
+                            type="search"
+                            id="subjectSearch"
+                            class="subject-search"
+                            placeholder="Search by subject name or description..."
+                            aria-label="Search subjects"
+                        >
 
-                    <button type="button" id="clearSubjectSearch" class="subject-btn-secondary">
-                        Clear
-                    </button>
+                        <button type="submit" class="subject-btn-primary">
+                            <i class="bi bi-search me-1"></i>
+                            Search
+                        </button>
+
+                        <button
+                            type="button"
+                            id="clearSubjectSearch"
+                            class="subject-btn-secondary"
+                        >
+                            Clear
+                        </button>
+                    </div>
+
+                    <span class="subject-search-hint">
+                        Find a subject record
+                    </span>
+                </form>
+
+                <div class="subject-table-wrapper">
+                    <table class="subject-table" id="subjectTable">
+                        <thead>
+                            <tr>
+                                <th>Subject Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for subject in subjects %}
+                            <tr>
+                                <td>
+                                    <span class="subject-name">
+                                        {{ subject.name }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="subject-description">
+                                        {{ subject.description|default:"—" }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="subject-actions">
+                                        <a
+                                            href="{% url 'subject-update' subject.pk %}"
+                                            class="subject-action-btn"
+                                            title="Edit subject"
+                                            aria-label="Edit subject"
+                                        >
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <a
+                                            href="{% url 'subject-delete' subject.pk %}"
+                                            class="subject-action-btn delete"
+                                            title="Delete subject"
+                                            aria-label="Delete subject"
+                                        >
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="subject-empty">
+                                    No subject records yet. Add your first subject!
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
 
-                <span class="subject-search-hint">Find a subject record</span>
-            </form>
+                <div class="subject-count">
+                    Showing
+                    <strong id="subjectCount">{{ subjects|length }}</strong>
+                    of
+                    <strong id="totalSubjectCount">{{ subjects|length }}</strong>
+                    subjects
+                </div>
 
-            <div class="subject-table-wrapper">
-                <table class="subject-table" id="subjectTable">
-                    <thead>
-                        <tr>
-                            <th>Subject Name</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {% for subject in subjects %}
-                        <tr>
-                            <td>
-                                <span class="subject-name">{{ subject.name }}</span>
-                            </td>
-
-                            <td>
-                                <div class="subject-description">
-                                    {{ subject.description|default:"—" }}
-                                </div>
-                            </td>
-
-                            <td>
-                                <div class="subject-actions">
-                                    <a
-                                        href="{% url 'subject-update' subject.pk %}"
-                                        class="subject-action-btn"
-                                        title="Edit subject"
-                                        aria-label="Edit subject"
-                                    >
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-
-                                    <a
-                                        href="{% url 'subject-delete' subject.pk %}"
-                                        class="subject-action-btn delete"
-                                        title="Delete subject"
-                                        aria-label="Delete subject"
-                                    >
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="3" class="subject-empty">
-                                No subject records yet. Add your first subject!
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
             </div>
+        </section>
 
-            <div class="subject-count">
-                Showing <strong id="subjectCount">{{ subjects|length }}</strong>
-                of <strong id="totalSubjectCount">{{ subjects|length }}</strong> subjects
-            </div>
-
-        </div>
-    </section>
+    </div>
 </div>
+{% endblock %}
 
-<script src="{% static 'js/subjects.js' %}?v=1"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/subjects.js' %}?v=1" defer></script>
+{% endblock %}

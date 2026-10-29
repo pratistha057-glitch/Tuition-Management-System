@@ -1534,3 +1534,16 @@ textarea:focus-visible {
         padding: 20px;
     }
 }
+
+/* Keep navigation links free of underlines */
+.site-header .nav-links a,
+.site-header .brand {
+    text-decoration: none;
+}
+
+.site-header .nav-links a:hover,
+.site-header .nav-links a:focus,
+.site-header .brand:hover,
+.site-header .brand:focus {
+    text-decoration: none;
+}

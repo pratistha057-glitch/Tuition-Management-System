@@ -12,6 +12,20 @@
             <h1>Student Portal</h1>
             <p>Welcome to your personal learning dashboard.</p>
         </div>
+
+        <button
+    type="button"
+    onclick="window.location.assign('/accounts/profile/');"
+    style="background-color: #3A69D6 !important;
+           color: white !important;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 10px;
+           font-weight: bold;
+           cursor: pointer;">
+    <i class="bi bi-person-vcard"></i>
+    Go to Profile
+</button>
     </div>
 
     <!-- Student Information -->
@@ -193,39 +207,6 @@
         </div>
     </section>
 
-    <!-- Fees Overview -->
-    <section class="dashboard-section">
-        <div class="section-header">
-            <div>
-                <h2>My Fees</h2>
-                <p>View your fee information.</p>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Fee Details</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for fee in pending_fees %}
-                    <tr>
-                        <td>{{ fee }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td class="empty-state">
-                            No fee information is available yet.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
 
 </section>
 

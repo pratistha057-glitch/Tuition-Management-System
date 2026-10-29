@@ -1,19 +1,18 @@
-
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Attendance Sheet | Tuition Management{% endblock %}
 
-    <title>Attendance Sheet | Tuition Management</title>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/attendance.css' %}">
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'css/attendance.css' %}">
-    <script src="{% static 'js/attendance.js' %}" defer></script>
-</head>
+{% block extra_js %}
+<script src="{% static 'js/attendance.js' %}" defer></script>
+{% endblock %}
 
-<body>
+{% block content %}
+
 
     <main class="attendance-page">
 
@@ -199,5 +198,5 @@
 
     </main>
 
-</body>
-</html>
+
+{% endblock %}
