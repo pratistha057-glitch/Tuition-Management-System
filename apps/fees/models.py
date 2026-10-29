@@ -23,7 +23,7 @@ class FeesModel(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.student.student_name} - Remaining: {self.remaining_amount}"
+        return f"{self.student} - Remaining: {self.remaining_amount}"
 
     class Meta:
         db_table="fees"
