@@ -1,4 +1,3 @@
-
 from django.urls import path
 from apps.fees.views import FeeListView,FeeCreateView,FeeUpdateView,FeeDeleteView
 

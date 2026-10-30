@@ -6,3 +6,4 @@ class FeeForm(forms.ModelForm):
     class Meta:
         model = FeesModel
         fields ='__all__'
+        exclude = ['remaining_amount']

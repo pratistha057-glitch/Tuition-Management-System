@@ -1,45 +1,45 @@
+
 {% extends "home/base.html" %}
 
-{% block title %}Staff Portal | ABC Tuition Centre{% endblock %}
+{% block title %}Staff Portal - ABC Tuition Centre{% endblock %}
 
 {% block content %}
 
-<section class="staff-page">
+<div class="home-container staff-page">
 
     <!-- Page Header -->
-    <div class="page-header">
+    <div class="page-header staff-page-header">
         <div>
-            <h1>Staff Portal</h1>
-            <p>Manage student attendance and view student records.</p>
+            <span class="hero-badge">Staff Management Portal</span>
+            <h1>Staff Dashboard</h1>
+            <p>Manage student attendance and review institutional records.</p>
         </div>
     </div>
 
-    <!-- Staff Welcome -->
-    <section class="welcome-card">
-        <div>
-            <h2>
-                Welcome{% if staff_member %}, {{ staff_member.username }}{% endif %}!
-            </h2>
-            <p>Here is your student and attendance overview.</p>
-        </div>
-    </section>
+    <!-- Welcome Card -->
+    <div class="content-card staff-welcome-card">
+        <h2>
+            Welcome{% if staff_member %}, {{ staff_member.username }}{% endif %}!
+        </h2>
+        <p>Here is your live student directory and attendance log overview.</p>
+    </div>
 
-    <!-- Student List -->
-    <section class="dashboard-section">
+    <!-- Student List Section -->
+    <section class="dashboard-section staff-section">
 
-        <div class="section-header">
+        <div class="section-header staff-section-header">
             <div>
-                <h2>Students</h2>
-                <p>Browse students registered at the tuition centre.</p>
+                <h2>Registered Students</h2>
+                <p>Browse students currently enrolled at the centre.</p>
             </div>
 
-            <span class="record-count">
-                {{ students|length }} students
+            <span class="service-badge staff-student-count">
+                {{ students|length }} students total
             </span>
         </div>
 
-        <div class="table-container">
-            <table class="data-table">
+        <div class="table-container staff-table-card">
+            <table class="data-table staff-data-table">
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -54,13 +54,15 @@
                     <tr>
                         <td>{{ student.student_id }}</td>
                         <td>{{ student.user.username }}</td>
-                        <td>{{ student.class_name }}</td>
-                        <td>{{ student.phone }}</td>
+                        <td>{{ student.class_name|default:"Not assigned" }}</td>
+                        <td>{{ student.phone|default:"Not provided" }}</td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="empty-state">
-                            No students have been registered yet.
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <p>No students have been registered yet.</p>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -70,53 +72,51 @@
 
     </section>
 
-    <!-- Attendance Records -->
-    <section class="dashboard-section">
+    <!-- Attendance Records Section -->
+    <section class="dashboard-section staff-section">
 
         <div class="section-header">
             <div>
                 <h2>Attendance Records</h2>
-                <p>Review attendance records for registered students.</p>
+                <p>Filter and review student attendance logs.</p>
             </div>
         </div>
 
-        <!-- Attendance Filter -->
-        <form method="get" class="filter-form">
+        <!-- Filter Form -->
+        <div class="content-card staff-filter-card">
+            <form method="get" class="staff-filter-form">
 
-            <div class="form-group">
-                <label for="student_id">Filter by student</label>
+                <div class="form-group staff-filter-group">
+                    <label for="student_id">Filter by student</label>
 
-                <select name="student_id" id="student_id">
-                    <option value="">All students</option>
+                    <select name="student_id" id="student_id" class="staff-filter-select">
+                        <option value="">All students</option>
 
-                    {% for student in students %}
-                    <option
-                        value="{{ student.id }}"
-                        {% if selected_student_id == student.id|stringformat:"s" %}
-                            selected
-                        {% endif %}
-                    >
-                        {{ student.student_id }} - {{ student.user.username }}
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
+                        {% for student in students %}
+                        <option value="{{ student.id }}"
+                            {% if selected_student_id == student.id|stringformat:"s" %}selected{% endif %}>
+                            {{ student.student_id }} - {{ student.user.username }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="filter-actions">
-                <button type="submit" class="btn btn-primary">
-                    Apply Filter
-                </button>
+                <div class="staff-filter-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Apply Filter
+                    </button>
 
-                <a href="{% url 'staff_portal' %}" class="btn btn-secondary">
-                    Clear Filter
-                </a>
-            </div>
+                    <a href="{% url 'staff_portal' %}" class="btn btn-secondary">
+                        Clear Filter
+                    </a>
+                </div>
 
-        </form>
+            </form>
+        </div>
 
         <!-- Attendance Table -->
-        <div class="table-container">
-            <table class="data-table">
+        <div class="table-container staff-table-card">
+            <table class="data-table staff-data-table">
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -132,7 +132,7 @@
                     <tr>
                         <td>{{ record.student.student_id }}</td>
                         <td>{{ record.student.user.username }}</td>
-                        <td>{{ record.student.class_name }}</td>
+                        <td>{{ record.student.class_name|default:"Not assigned" }}</td>
                         <td>{{ record.date|date:"M d, Y" }}</td>
                         <td>
                             <span class="status-badge {% if record.status == 'Present' %}status-present{% else %}status-absent{% endif %}">
@@ -142,8 +142,10 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="empty-state">
-                            No attendance records found.
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <p>No attendance records found.</p>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -153,6 +155,6 @@
 
     </section>
 
-</section>
+</div>
 
 {% endblock %}

@@ -3,11 +3,13 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.students.models import Student
 from apps.courses.models import Course
 from apps.attendance.models import AttendanceModel, Status
+from apps.fees.models import FeesModel
 
 
 # Home page
 def home_view(request):
     return render(request, "home/home.html")
+
 
 
 # Admin portal
@@ -26,14 +28,19 @@ def admin_portal(request):
         "student__user",
     ).order_by("-date", "-id")[:5]
 
+    pending_fees_list = FeesModel.objects.filter(
+        remaining_amount__gt=0
+    ).select_related(
+        "student__user",
+        "course"
+    ).order_by("due_date")
+
     context = {
         "total_students": Student.objects.count(),
         "total_attendance_records": AttendanceModel.objects.count(),
         "recent_students": recent_students,
         "recent_attendance": recent_attendance,
-
-        # Placeholder until we connect the Fees app
-        "pending_fees_list": [],
+        "pending_fees_list": pending_fees_list,
     }
 
     return render(request, "home/admin_portal.html", context)

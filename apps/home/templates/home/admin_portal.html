@@ -1,147 +1,190 @@
+
 {% extends "home/base.html" %}
+{% load static %}
 
 {% block title %}Admin Portal | ABC Tuition Centre{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<section class="admin-page">
+<div class="admin-page">
 
-    <!-- Page Header -->
+    <!-- Page Heading -->
     <div class="page-header">
         <div>
-            <h1>Admin Portal</h1>
-            <p>Manage students and monitor tuition centre activity.</p>
-        </div>
-
-        <div class="page-actions">
-            <a href="{% url 'student-create' %}" class="btn btn-primary">
-                Create Student
-            </a>
+            <span class="hero-badge">Administration</span>
+            <h1>Admin Dashboard</h1>
+            <p>Manage your tuition centre, students, fees and attendance.</p>
         </div>
     </div>
+
 
     <!-- Dashboard Statistics -->
-    <div class="dashboard-stats">
+    <div class="admin-stats-grid">
 
         <div class="stat-card">
             <div class="stat-info">
+                <h2>{{ total_students|default:0 }}</h2>
                 <p>Total Students</p>
-                <h2>{{ total_students }}</h2>
             </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-info">
+                <h2>{{ total_attendance_records|default:0 }}</h2>
                 <p>Attendance Records</p>
-                <h2>{{ total_attendance_records }}</h2>
             </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-info">
-                <p>Pending Fees</p>
                 <h2>{{ pending_fees_list|length }}</h2>
+                <p>Pending Fee Records</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Manage Your Centre -->
+
+    <!-- Management Sections -->
     <section class="dashboard-section">
+
         <div class="section-header">
             <div>
-                <h2>Manage Your Centre</h2>
-                <p>Quick access to the main management pages.</p>
+                <h2>Management</h2>
+                <p>Quick access to the main areas of your tuition centre.</p>
             </div>
         </div>
 
-        <div class="quick-links">
+        <div class="services-grid admin-services-grid">
 
-            <a href="{% url 'student-list' %}" class="quick-link-card">
-                <h3>Students</h3>
-                <p>View and manage student records.</p>
-                <span>Manage Students &rarr;</span>
+            <!-- Students -->
+            <a href="{% url 'student-list' %}" class="content-card service-card">
+                <div>
+                    <span class="service-number">01</span>
+                    <h3>Students</h3>
+                    <p>View, add, update and manage student information.</p>
+                </div>
+                <span class="service-badge">Manage Students</span>
             </a>
 
-            <a href="{% url 'course-list' %}" class="quick-link-card">
-                <h3>Courses</h3>
-                <p>View and manage courses.</p>
-                <span>Manage Courses &rarr;</span>
+            <!-- Courses -->
+            <a href="{% url 'course-list' %}" class="content-card service-card">
+                <div>
+                    <span class="service-number">02</span>
+                    <h3>Courses</h3>
+                    <p>Manage courses and their associated subjects.</p>
+                </div>
+                <span class="service-badge">Manage Courses</span>
             </a>
 
-            <a href="{% url 'subject-list' %}" class="quick-link-card">
-                <h3>Subjects</h3>
-                <p>View and manage subjects.</p>
-                <span>Manage Subjects &rarr;</span>
+            <!-- Attendance -->
+            <a href="{% url 'attendance' %}" class="content-card service-card">
+                <div>
+                    <span class="service-number">03</span>
+                    <h3>Attendance</h3>
+                    <p>View and manage student attendance records.</p>
+                </div>
+                <span class="service-badge">Manage Attendance</span>
             </a>
 
-            <a href="{% url 'fee-list' %}" class="quick-link-card">
-                <h3>Fees</h3>
-                <p>View and manage student fee records.</p>
-                <span>Manage Fees &rarr;</span>
+            <!-- Fees -->
+            <a href="{% url 'fee-list' %}" class="content-card service-card">
+                <div>
+                    <span class="service-number">04</span>
+                    <h3>Fees</h3>
+                    <p>View fee statements and manage student dues.</p>
+                </div>
+                <span class="service-badge">Manage Fees</span>
             </a>
 
         </div>
+
     </section>
+
 
     <!-- Recent Students -->
     <section class="dashboard-section">
+
         <div class="section-header">
             <div>
                 <h2>Recent Students</h2>
-                <p>Recently added students in the system.</p>
+                <p>Recently added students in your tuition centre.</p>
             </div>
 
-            <a href="{% url 'student-list' %}" class="btn btn-secondary">
-                View Students
+            <a href="{% url 'student-list' %}" class="btn btn-secondary btn-sm">
+                View All Students
             </a>
         </div>
 
-        <div class="table-container">
-            <table class="data-table">
+        <div class="table-container admin-table-card">
+
+            <table class="admin-data-table">
+
                 <thead>
                     <tr>
+                        <th>Student</th>
                         <th>Student ID</th>
-                        <th>Username</th>
                         <th>Class</th>
-                        <th>Phone</th>
+                        <th>Joined Date</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for student in recent_students %}
                     <tr>
+                        <td>
+                            {{ student.user.get_full_name|default:student.user.username }}
+                        </td>
+
                         <td>{{ student.student_id }}</td>
-                        <td>{{ student.user.username }}</td>
-                        <td>{{ student.class_name }}</td>
-                        <td>{{ student.phone }}</td>
+
+                        <td>{{ student.class_name|default:"Not assigned" }}</td>
+
+                        <td>{{ student.joined_date|date:"M d, Y" }}</td>
                     </tr>
+
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="empty-state">
-                            No students have been added yet.
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <p>No students have been added yet.</p>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
+
         </div>
+
     </section>
+
 
     <!-- Recent Attendance -->
     <section class="dashboard-section">
+
         <div class="section-header">
             <div>
                 <h2>Recent Attendance</h2>
-                <p>Latest student attendance records.</p>
+                <p>Latest attendance records.</p>
             </div>
+
+            <a href="{% url 'attendance' %}" class="btn btn-secondary btn-sm">
+                View All Attendance
+            </a>
         </div>
 
-        <div class="table-container">
-            <table class="data-table">
+        <div class="table-container admin-table-card">
+
+            <table class="admin-data-table">
+
                 <thead>
                     <tr>
-                        <th>Student ID</th>
                         <th>Student</th>
                         <th>Date</th>
                         <th>Status</th>
@@ -151,69 +194,111 @@
                 <tbody>
                     {% for record in recent_attendance %}
                     <tr>
-                        <td>{{ record.student.student_id }}</td>
-                        <td>{{ record.student.user.username }}</td>
-                        <td>{{ record.date|date:"M d, Y" }}</td>
                         <td>
-                            <span class="status-badge {% if record.status == 'Present' %}status-present{% else %}status-absent{% endif %}">
-                                {{ record.status }}
-                            </span>
+                            {{ record.student.user.get_full_name|default:record.student.user.username }}
+                        </td>
+
+                        <td>{{ record.date|date:"M d, Y" }}</td>
+
+                        <td>
+                            {% if record.status == "Present" %}
+                                <span class="status-badge status-present">
+                                    Present
+                                </span>
+                            {% else %}
+                                <span class="status-badge status-absent">
+                                    Absent
+                                </span>
+                            {% endif %}
                         </td>
                     </tr>
+
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="empty-state">
-                            No attendance records are available.
+                        <td colspan="3">
+                            <div class="empty-state">
+                                <p>No attendance records available.</p>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
+
         </div>
+
     </section>
+
 
     <!-- Pending Fees -->
     <section class="dashboard-section">
+
         <div class="section-header">
             <div>
                 <h2>Pending Fees</h2>
                 <p>Students with outstanding tuition fees.</p>
             </div>
 
-            <a href="{% url 'fee-list' %}" class="btn btn-secondary">
+            <a href="{% url 'fee-list' %}" class="btn btn-secondary btn-sm">
                 View All Fees
             </a>
         </div>
 
-        <div class="table-container">
-            <table class="data-table">
+        <div class="table-container admin-table-card">
+
+            <table class="admin-data-table">
+
                 <thead>
                     <tr>
                         <th>Student</th>
-                        <th>Class</th>
-                        <th>Fee Details</th>
+                        <th>Course</th>
+                        <th>Total Amount</th>
+                        <th>Paid Amount</th>
+                        <th>Remaining Amount</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for fee in pending_fees_list %}
                     <tr>
-                        <td>{{ fee.student.user.username }}</td>
-                        <td>{{ fee.student.class_name }}</td>
-                        <td>{{ fee }}</td>
+                        <td>
+                            {{ fee.student.user.get_full_name|default:fee.student.user.username }}
+                        </td>
+
+                        <td>{{ fee.course.name }}</td>
+
+                        <td>Rs. {{ fee.total_amount }}</td>
+
+                        <td>Rs. {{ fee.paid_amount }}</td>
+
+                        <td>Rs. {{ fee.remaining_amount }}</td>
+
+                        <td>
+                            <span class="status-badge status-absent">
+                                {{ fee.status }}
+                            </span>
+                        </td>
                     </tr>
+
                     {% empty %}
                     <tr>
-                        <td colspan="3" class="empty-state">
-                            No pending fee records to display.
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <p>No pending fee records to display.</p>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
+
         </div>
+
     </section>
 
-</section>
+</div>
 
 {% endblock %}
